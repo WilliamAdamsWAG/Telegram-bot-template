@@ -1,9 +1,9 @@
 FROM python:3-slim
 
-ENV TELEGRAM_API_TOKEN="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k"
+ENV TELEGRAM_API_TOKEN="your_token"
 
 ADD . ./app
 
-WORKDIR /app/
+WORKDIR /app/src
 RUN pip install -r requirements.txt
 CMD python main.py
