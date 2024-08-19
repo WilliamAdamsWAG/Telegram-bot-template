@@ -1,13 +1,13 @@
 from loguru import logger
 
-from src.templates import Templates
+from backend.templates import Templates
 
-logger.add("logs/bot.log",
+logger.add("../logs/bot.log",
            format="\n{level.icon}{time:DD.MM HH:mm:ss}\n{message}\n",
            level="DEBUG",
            filter=lambda record: record['extra'].get('name') == f'bot')
 
-logger.add("logs/messages.log",
+logger.add("../logs/messages.log",
            format="\n{level.icon}{time:DD.MM HH:mm:ss}\n{message}\n",
            level="DEBUG",
            filter=lambda record: record['extra'].get('name') == f'message')

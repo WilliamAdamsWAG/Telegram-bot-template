@@ -1,11 +1,12 @@
 from aiogram import Dispatcher, Bot
 from aiogram.types import BotCommand
 
-from handlers.start import start_command
+from triggers.commands.start import start_command
+from triggers.messages.echo_message import echo_message
 
-from src.core import Core
-from src.log import Log
-from src.templates import Templates
+from backend.core import Core
+from backend.log import Log
+from backend.templates import Templates
 
 class App:
     dispatcher = Dispatcher()
@@ -27,6 +28,7 @@ class App:
     async def register_handlers(self):
         handlers = (
             start_command,
+            echo_message,
         )
 
         log_message: str = f"\n{' ROUTERS '.center(48, '=')}\n"
@@ -43,6 +45,7 @@ class App:
         self.log.bot_logging(log_message)
         
     async def start(self):
-        self.log.bot_logging(Templates.BOT_POLLING)
+        self.log.bot_logging(Templates.LOG_BOT_POLLING)
+        
         await self.bot.delete_webhook(drop_pending_updates=True)
         await self.dispatcher.start_polling(self.bot)
