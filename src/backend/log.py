@@ -25,8 +25,7 @@ class Log:
     def message_logging(*, call: str, user, chat_id):
         """ Log messages """
         MESSAGE_LOG.info(Templates.LOG_MESSAGE.substitute(
-            user_id=user.user_id,
-            username=user.username,
+            user_info=user.user_info,
             chat=chat_id,
             text=call
         ))

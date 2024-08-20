@@ -10,7 +10,7 @@ class Templates:
                        f"{''.center(50, '=')}\n")
     
     LOG_MESSAGE = Template(f"\nMessage ->\n"
-                           f"@$username:$user_id (chat $chat)\n"
+                           f"@$user_info (chat $chat)\n"
                            f"$text\n")
     
     LOG_ROUTERS_REGISTR = Template(f"\n{' ROUTERS '.center(48, '=')}\n"
