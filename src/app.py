@@ -15,7 +15,7 @@ class App:
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
     
     def __init__(self):
-        self.bot = Bot(token="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k")
+        self.bot = Bot(token=self.TOKEN)
         self.dispatcher = Dispatcher()
         
     async def configurate(self):
