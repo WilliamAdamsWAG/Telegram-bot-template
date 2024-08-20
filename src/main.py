@@ -4,6 +4,7 @@ from app import App
 
 async def start_project() -> None:
     app = App()
+    
     await app.configurate()
     await app.start()
     
