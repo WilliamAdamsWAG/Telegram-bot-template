@@ -31,3 +31,23 @@ class Log:
             text=call
         ))
         
+    @staticmethod
+    def bot_routers_logging(routers: dict[str, bool]):
+        routers_status: str = ""
+        
+        for index, values in enumerate(list(routers.items())):
+            if values[1]:
+                routers_status += Templates.LOG_ROUTER_TRUE.substitute(
+                    router=f"{values[0]:<20}",
+                    index=index+1
+                )
+            else:
+                routers_status += Templates.LOG_ROUTER_FALSE.substitute(
+                    router=f"{values[0]:<15}",
+                    index=index+1
+                )
+        
+        BOT_LOG.info(Templates.LOG_ROUTERS_REGISTR.substitute(
+            routers=routers_status
+        ))
+        
