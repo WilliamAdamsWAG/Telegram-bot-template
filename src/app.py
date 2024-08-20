@@ -5,6 +5,7 @@ from aiogram.types import BotCommand
 
 from triggers.commands.start import start_command
 from triggers.messages.echo_message import echo_message
+from triggers.commands.image import image_command
 
 from backend.log import Log
 from backend.templates import Templates
@@ -14,13 +15,13 @@ class App:
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
     
     def __init__(self):
-        self.bot = Bot(token=self.TOKEN)
+        self.bot = Bot(token="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k")
         self.dispatcher = Dispatcher()
         
     async def configurate(self):
         """ Configuring and connecting components """
         await self.set_commands()
-        await self.connect_triggers()
+        await self.connect_routers()
     
     async def set_commands(self):
         """ Enable commands to menu """
@@ -28,28 +29,27 @@ class App:
             BotCommand(command="/start", description="greeting"),
         ])
         
-    async def connect_triggers(self):
+    async def connect_routers(self):
         """ Connect routers for enable triggers """
         # IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
         # so you need to properly arrange connections, because if 1 handler is triggered, 
         # the second one will not run
-        triggers = (
+        routers: tuple = (
             start_command,
+            image_command,
             echo_message,
         )
+        
+        routers_connection_info: dict[str, bool] = {}
 
-        log_message: str = f"\n{' ROUTERS '.center(48, '=')}\n"
-
-        for index, router in enumerate(triggers):
+        for router in routers:
             try:
                 self.dispatcher.include_router(router)
-                log_message += f"{router.name:<20}[{index+1}] initialized success ✅\n"
+                routers_connection_info[router.name] = True
             except ValueError:
-                log_message += f"{router.name:<15}[{index+1}] failed ❌\n"
+                routers_connection_info[router.name] = False
 
-        log_message += f"{''.center(48, '=')}\n"
-
-        Log.bot_logging(log_message)
+        Log.bot_routers_logging(routers_connection_info)
         
     async def start(self):
         Log.bot_logging(Templates.LOG_BOT_POLLING)
