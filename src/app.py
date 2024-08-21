@@ -18,7 +18,7 @@ class App:
         self.bot = Bot(token=self.TOKEN)
         self.dispatcher = Dispatcher()
         
-    async def configurate(self):
+    async def configure(self):
         """ Configuring and connecting components """
         await self.set_commands()
         await self.connect_routers()
