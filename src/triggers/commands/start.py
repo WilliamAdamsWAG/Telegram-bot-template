@@ -12,7 +12,7 @@ start_command = Router()
 start_command.name = "start"
 
 @start_command.message(CommandStart(), F.chat.type == "private")
-async def command_start_trigger(message: Message, state: FSMContext):
+async def command_start_trigger(message: Message, state: FSMContext) -> None:
     """ Works when the user enters /start """
     await state.clear()  #  Exit from any FSM states
     

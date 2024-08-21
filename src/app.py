@@ -14,22 +14,23 @@ class App:
     """ The base class of the bot, which describes the parameters of its launch """
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.bot = Bot(token="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k")
         self.dispatcher = Dispatcher()
         
-    async def configure(self):
+    async def configure(self) -> None:
         """ Configuring and connecting components """
         await self.set_commands()
         await self.connect_routers()
     
-    async def set_commands(self):
+    async def set_commands(self) -> None:
         """ Enable commands to menu """
         await self.bot.set_my_commands(commands=[
             BotCommand(command="/start", description="greeting"),
+            BotCommand(command="/image", description="image sample"),
         ])
         
-    async def connect_routers(self):
+    async def connect_routers(self) -> None:
         """ Connect routers for enable triggers """
         #! IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
         #! so you need to properly arrange connections, because if 1 handler is triggered, 
@@ -51,7 +52,7 @@ class App:
 
         Log.bot_routers_logging(routers_connection_info)
         
-    async def start(self):
+    async def start(self) -> None:
         Log.bot_logging(Templates.LOG_BOT_POLLING)
         
         #! When the bot is turned off all commands from users are saved and will be processed at startup, 

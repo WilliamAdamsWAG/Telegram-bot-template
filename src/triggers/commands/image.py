@@ -11,7 +11,7 @@ image_command = Router()
 image_command.name = "image"
 
 @image_command.message(Command("image"))
-async def command_start_trigger(message: Message, state: FSMContext):
+async def command_start_trigger(message: Message, state: FSMContext) -> None:
     """ Works when the user enters /start """
     await state.clear()  #  Exit from any FSM states
     

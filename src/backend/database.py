@@ -9,7 +9,7 @@ class Database:
         
         self.connection.commit()
         
-    def create_users_table(self):
+    def create_users_table(self) -> None:
         self.cursor.execute('''
                         CREATE TABLE IF NOT EXISTS Users (
                         id INTEGER PRIMARY KEY,

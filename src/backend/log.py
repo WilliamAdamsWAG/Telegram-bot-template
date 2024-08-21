@@ -22,7 +22,7 @@ class Log:
         BOT_LOG.info(text)
     
     @staticmethod
-    def message_logging(*, call: str, user, chat_id):
+    def message_logging(*, call: str, user, chat_id) -> None:
         """ Log messages """
         MESSAGE_LOG.info(Templates.LOG_MESSAGE.substitute(
             user_info=user.user_info,
@@ -31,7 +31,7 @@ class Log:
         ))
         
     @staticmethod
-    def bot_routers_logging(routers: dict[str, bool]):
+    def bot_routers_logging(routers: dict[str, bool]) -> None:
         routers_status: str = ""
         
         for index, values in enumerate(list(routers.items())):

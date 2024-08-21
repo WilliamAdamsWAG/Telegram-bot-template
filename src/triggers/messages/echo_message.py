@@ -9,7 +9,7 @@ echo_message = Router()
 echo_message.name = "echo_message"
 
 @echo_message.message(F.chat.type == "private")
-async def any_message_trigger(message: Message):
+async def any_message_trigger(message: Message) -> None:
     """ Works when the user enters any message """
     # Info about user
     user_id = message.from_user.id
