@@ -13,7 +13,7 @@ class Templates:
                            f"@$user_info (chat $chat)\n"
                            f"$text\n")
     
-    LOG_ROUTERS_REGISTR = Template(f"\n{' ROUTERS '.center(48, '=')}\n"
+    LOG_ROUTERS_REGISTER = Template(f"\n{' ROUTERS '.center(48, '=')}\n"
                                    f"$routers"
                                    f"{''.center(48, '=')}\n")
      

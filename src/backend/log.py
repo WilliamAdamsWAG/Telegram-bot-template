@@ -46,7 +46,7 @@ class Log:
                     index=index+1
                 )
         
-        BOT_LOG.info(Templates.LOG_ROUTERS_REGISTR.substitute(
+        BOT_LOG.info(Templates.LOG_ROUTERS_REGISTER.substitute(
             routers=routers_status
         ))
         
