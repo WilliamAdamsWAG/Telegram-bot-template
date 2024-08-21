@@ -15,7 +15,7 @@ class App:
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
     
     def __init__(self):
-        self.bot = Bot(token=self.TOKEN)
+        self.bot = Bot(token="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k")
         self.dispatcher = Dispatcher()
         
     async def configure(self):
@@ -31,9 +31,9 @@ class App:
         
     async def connect_routers(self):
         """ Connect routers for enable triggers """
-        # IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
-        # so you need to properly arrange connections, because if 1 handler is triggered, 
-        # the second one will not run
+        #! IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
+        #! so you need to properly arrange connections, because if 1 handler is triggered, 
+        #! the second one will not run
         routers: tuple = (
             start_command,
             image_command,
@@ -54,7 +54,7 @@ class App:
     async def start(self):
         Log.bot_logging(Templates.LOG_BOT_POLLING)
         
-        # When the bot is turned off all commands from users are saved and will be processed at startup, 
-        # in order not to process old requests you need to delete webhooks
+        #! When the bot is turned off all commands from users are saved and will be processed at startup, 
+        #! in order not to process old requests you need to delete webhooks
         await self.bot.delete_webhook(drop_pending_updates=True)
-        await self.dispatcher.start_polling(self.bot) # Run bot
+        await self.dispatcher.start_polling(self.bot) #* Run bot
