@@ -18,3 +18,11 @@ class Database:
                         ''')
         self.connection.commit()
         
+    def count_users(self, *, condition: list[str | int] = None) -> int:
+        if condition is None:
+            self.cursor.execute("SELECT COUNT(*) FROM Users")
+            return self.cursor.fetchone()[0]
+        else:
+            self.cursor.execute(f"SELECT COUNT(*) FROM Users WHERE {list[0]} = {list[1]}")
+            return self.cursor.fetchone()[0]
+        
