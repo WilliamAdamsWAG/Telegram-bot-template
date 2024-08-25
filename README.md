@@ -4,7 +4,8 @@
 # Quick start
 
 ```sh
-git clone https://github.com/WilliamAdamsWAG/Telegram-bot-template`
+git clone https://github.com/WilliamAdamsWAG/Telegram-bot-template
+```
 
 ## start with Docker
 
