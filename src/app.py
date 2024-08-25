@@ -6,6 +6,7 @@ from aiogram.types import BotCommand
 from triggers.commands.start import start_command
 from triggers.messages.echo_message import echo_message
 from triggers.commands.image import image_command
+from triggers.commands.audio import audio_command
 
 from backend.log import Log
 from backend.templates import Templates
@@ -15,7 +16,7 @@ class App:
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
     
     def __init__(self) -> None:
-        self.bot = Bot(token="7256148389:AAGL9A9mUsjwPrcJS7U8jo95bRNsY_ycz2k")
+        self.bot = Bot(token=self.TOKEN)
         self.dispatcher = Dispatcher()
         
     async def configure(self) -> None:
@@ -28,6 +29,7 @@ class App:
         await self.bot.set_my_commands(commands=[
             BotCommand(command="/start", description="greeting"),
             BotCommand(command="/image", description="image sample"),
+            BotCommand(command="/audio", description="audio sample"),
         ])
         
     async def connect_routers(self) -> None:
@@ -38,6 +40,7 @@ class App:
         routers: tuple = (
             start_command,
             image_command,
+            audio_command,
             echo_message,
         )
         
