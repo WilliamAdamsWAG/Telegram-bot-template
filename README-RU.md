@@ -1,13 +1,13 @@
 <a id="readme-top"></a>
 [![MIT License][license-shield]][license-url]
 
-# About 
+# О проекте 
 
-## description
+## Описание
 
-This is universal template for Telegram bot. Basic functions already done, but more features will be ready later
+Это универсальный шаблон телеграм бота. Базовые функции уже реализованы, но скоро будет добавленно больше возможностей
 
-## Build with
+## Разработано с помощью
 
 * ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 * AIogram
@@ -16,41 +16,41 @@ This is universal template for Telegram bot. Basic functions already done, but m
 * ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 * ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
-# Quick start
+# Быстрый старт
 
 ```sh
 git clone https://github.com/WilliamAdamsWAG/Telegram-bot-template
 ```
 
-## start with Docker
+## запуск через Docker
 
-1. Enter a token to `DOCKERFILE` at `line 3`
-2. In console enter:
+1. Вставьте токен в `DOCKERFILE` в `строку 3`
+2. Введите в концоли:
 ```sh
 docker build . --tag telegram-bot
 ```
-3. Finally run app: 
+3. Запустите контейнер: 
 ```sh
 docker run telegram-bot
 ```
 
-## start without docker
+## Запуск без Docker'a
 
-1. Enter a token to `src/app.py` to var `TOKEN`
-2. Install libraries:
+1. Вставьте токен в `src/app.py` в переменную `TOKEN`
+2. Установите библиотеки:
 ```sh
 pip install -r requirements.txt
 ```
-3. Run the application: 
+3. Запустите приложение: 
 ```sh
 python main.py
 ```
 
-# License
+# Лицензия
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Расспростроняется с MIT лицензией. Просмотрите `LICENSE` для более подробной информации.
 
-# Contact
+# Контакты
 
 [![Gmail][gmail-shield]][gmail-url]
 [![Telegram][telegram-shield]][telegram-url]
