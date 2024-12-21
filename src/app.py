@@ -1,3 +1,26 @@
+""" MIT License
+
+Copyright (c) 2024 WilliamAdamsWAG
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+"""
 import os
 
 from aiogram import Dispatcher, Bot
@@ -14,16 +37,16 @@ from backend.templates import Templates
 class App:
     """ The base class of the bot, which describes the parameters of its launch """
     TOKEN = os.environ.get("TELEGRAM_API_TOKEN")
-    
+
     def __init__(self) -> None:
         self.bot = Bot(token=self.TOKEN)
         self.dispatcher = Dispatcher()
-        
+
     async def configure(self) -> None:
         """ Configuring and connecting components """
         await self.set_commands()
         await self.connect_routers()
-    
+
     async def set_commands(self) -> None:
         """ Enable commands to menu """
         await self.bot.set_my_commands(commands=[
@@ -31,7 +54,7 @@ class App:
             BotCommand(command="/image", description="image sample"),
             BotCommand(command="/audio", description="audio sample"),
         ])
-        
+
     async def connect_routers(self) -> None:
         """ Connect routers for enable triggers """
         #! IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
@@ -43,7 +66,7 @@ class App:
             audio_command,
             echo_message,
         )
-        
+
         routers_connection_info: dict[str, bool] = {}
 
         for router in routers:
@@ -54,11 +77,12 @@ class App:
                 routers_connection_info[router.name] = False
 
         Log.bot_routers_logging(routers_connection_info)
-        
+
     async def start(self) -> None:
+        """ Start bot polling """
         Log.bot_logging(Templates.LOG_BOT_POLLING)
-        
-        #! When the bot is turned off all commands from users are saved and will be processed at startup, 
-        #! in order not to process old requests you need to delete webhooks
+
+        #! When the bot is turned off all commands from users are saved and will be processed 
+        #! at startup, in order not to process old requests you need to delete webhooks
         await self.bot.delete_webhook(drop_pending_updates=True)
         await self.dispatcher.start_polling(self.bot) #* Run bot
