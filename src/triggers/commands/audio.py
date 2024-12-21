@@ -42,7 +42,7 @@ async def command_start_trigger(message: Message) -> None:
     user = User(user_id, username)
 
     Log.message_logging(call="/audio", user=user, chat_id=message.chat.id)
-    
-    await message.bot.send_audio(chat_id=message.chat.id, 
+
+    await message.bot.send_audio(chat_id=message.chat.id,
                                  audio=FSInputFile("src\\storage\\sounds\\audio_sample.mp3"),
                                  caption="Example audio")

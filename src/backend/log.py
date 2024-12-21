@@ -28,12 +28,12 @@ from backend.templates import Templates
 logger.add("../logs/bot.log",
            format=Templates.LOG_FORMAT,
            level="DEBUG",
-           filter=lambda record: record['extra'].get('name') == f'bot')
+           filter=lambda record: record['extra'].get('name') == 'bot')
 
 logger.add("../logs/messages.log",
            format=Templates.LOG_FORMAT,
            level="DEBUG",
-           filter=lambda record: record['extra'].get('name') == f'message')
+           filter=lambda record: record['extra'].get('name') == 'message')
 
 BOT_LOG = logger.bind(name="bot")
 MESSAGE_LOG = logger.bind(name="message")
@@ -56,6 +56,7 @@ class Log:
 
     @staticmethod
     def bot_routers_logging(routers: dict[str, bool]) -> None:
+        """ Log routers initiazilization """
         routers_status: str = ""
 
         for index, values in enumerate(list(routers.items())):

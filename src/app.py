@@ -57,8 +57,8 @@ class App:
 
     async def connect_routers(self) -> None:
         """ Connect routers for enable triggers """
-        #! IMPORTANT: Messages and activity in the bot goes through this list sequentially, 
-        #! so you need to properly arrange connections, because if 1 handler is triggered, 
+        #! IMPORTANT: Messages and activity in the bot goes through this list sequentially,
+        #! so you need to properly arrange connections, because if 1 handler is triggered,
         #! the second one will not run
         routers: tuple = (
             start_command,
@@ -82,7 +82,7 @@ class App:
         """ Start bot polling """
         Log.bot_logging(Templates.LOG_BOT_POLLING)
 
-        #! When the bot is turned off all commands from users are saved and will be processed 
+        #! When the bot is turned off all commands from users are saved and will be processed
         #! at startup, in order not to process old requests you need to delete webhooks
         await self.bot.delete_webhook(drop_pending_updates=True)
         await self.dispatcher.start_polling(self.bot) #* Run bot

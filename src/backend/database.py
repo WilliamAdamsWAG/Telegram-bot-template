@@ -51,6 +51,6 @@ class Database:
         if condition is None:
             self.cursor.execute("SELECT COUNT(*) FROM Users")
             return self.cursor.fetchone()[0]
-        
+
         self.cursor.execute(f"SELECT COUNT(*) FROM Users WHERE {list[0]} = {list[1]}")
         return self.cursor.fetchone()[0]

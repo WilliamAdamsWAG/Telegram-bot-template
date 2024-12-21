@@ -46,6 +46,6 @@ async def command_start_trigger(message: Message, state: FSMContext) -> None:
 
     Log.message_logging(call="/image", user=user, chat_id=message.chat.id)
 
-    await message.bot.send_photo(chat_id=message.chat.id, 
+    await message.bot.send_photo(chat_id=message.chat.id,
                                  photo=FSInputFile("src\\storage\\img\\rep_banner.png"),
                                  caption="Example photo")
