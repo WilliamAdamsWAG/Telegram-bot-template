@@ -48,3 +48,4 @@ class Templates:
     LOG_ROUTER_FALSE = Template("$router[$index] failed ❌\n")
 
     START: str = "This is example of greeting text"
+    TYPING: str = "This example use typing bot status"

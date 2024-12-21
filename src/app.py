@@ -30,6 +30,7 @@ from triggers.commands.start import start_command
 from triggers.messages.echo_message import echo_message
 from triggers.commands.image import image_command
 from triggers.commands.audio import audio_command
+from triggers.commands.typing import typing_command
 
 from backend.log import Log
 from backend.templates import Templates
@@ -53,6 +54,7 @@ class App:
             BotCommand(command="/start", description="greeting"),
             BotCommand(command="/image", description="image sample"),
             BotCommand(command="/audio", description="audio sample"),
+            BotCommand(command="/typing", description="typing activity")
         ])
 
     async def connect_routers(self) -> None:
@@ -65,6 +67,7 @@ class App:
             image_command,
             audio_command,
             echo_message,
+            typing_command,
         )
 
         routers_connection_info: dict[str, bool] = {}
