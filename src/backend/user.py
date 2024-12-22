@@ -22,26 +22,42 @@ SOFTWARE.
 
 """
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
 
 class User(Base):
     """
-    The User class represents a user model in the system.
+    The `User` class represents a user model in the system.
 
     Attributes:
         id (int): The unique identifier for the user.
         name (str): The user's name.
 
     Methods:
+        delete:
+            Deletes a `User` object from the database.
         __repr__:
-            Returns a string representation of the User object.
+            Returns a string representation of the `User` object.
     """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+
+    def delete(self) -> None:
+        """ Deletes a `User` object from the database.
+
+        :param self: The `User` object to be deleted.
+        :return: `None`, indicating successful deletion.
+        """
+        session_maker = sessionmaker(bind=self.ENGINE)
+        session = session_maker()
+
+        session.query(User).filter_by(id=self.id).delete()
+
+        session.commit()
+        session.close()
 
     def __repr__(self):
         return f'<User(id={self.id}, name="{self.name}")>'

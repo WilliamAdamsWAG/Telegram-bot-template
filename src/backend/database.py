@@ -41,6 +41,7 @@ class Database:
 
     """
     ENGINE = create_engine('sqlite:///database.db')
+    session = None
 
     @staticmethod
     def get_user(user_id: int, username: str) -> User:
@@ -75,3 +76,12 @@ class Database:
         session.close()
 
         return user
+
+    def __enter__(self):
+        session_maker = sessionmaker(bind=self.ENGINE)
+        self.session = session_maker()
+
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.session.close()

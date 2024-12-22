@@ -47,4 +47,4 @@ async def command_start_trigger(message: Message, state: FSMContext) -> None:
 
     Log.message_logging(call="/start", user=user, chat_id=message.chat.id)
 
-    await message.answer(Templates.START, parse_mode="markdown")
+    await message.answer(Templates.START.value, parse_mode="markdown")

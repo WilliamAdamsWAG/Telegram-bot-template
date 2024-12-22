@@ -23,9 +23,9 @@ SOFTWARE.
 """
 from string import Template
 from datetime import datetime
+from enum import Enum
 
-
-class Templates:
+class Templates(Enum):
     """ Templates
     templates for logs and messages
 
@@ -41,7 +41,7 @@ class Templates:
                            "$text\n")
 
     LOG_ROUTERS_REGISTER = Template(f"\n{' ROUTERS '.center(48, '=')}\n"
-                                   f"$routers"
+                                   "$routers"
                                    f"{''.center(48, '=')}\n")
 
     LOG_ROUTER_TRUE = Template("$router[$index] initialized success ✅\n")

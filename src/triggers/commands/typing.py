@@ -53,4 +53,4 @@ async def command_start_trigger(message: Message, state: FSMContext) -> None:
     # While the code block is executing, the user will see the bot's activity typing
     async with ChatActionSender(bot=message.bot, chat_id=message.from_user.id, action="typing"):
         await asyncio.sleep(3) # wait 3 second before answer
-        await message.answer(Templates.TYPING, parse_mode="markdown")
+        await message.answer(Templates.TYPING.value, parse_mode="markdown")

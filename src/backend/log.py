@@ -26,12 +26,12 @@ from loguru import logger
 from backend.templates import Templates
 
 logger.add("../logs/bot.log",
-           format=Templates.LOG_FORMAT,
+           format=Templates.LOG_FORMAT.value,
            level="DEBUG",
            filter=lambda record: record['extra'].get('name') == 'bot')
 
 logger.add("../logs/messages.log",
-           format=Templates.LOG_FORMAT,
+           format=Templates.LOG_FORMAT.value,
            level="DEBUG",
            filter=lambda record: record['extra'].get('name') == 'message')
 
@@ -48,7 +48,7 @@ class Log:
     @staticmethod
     def message_logging(*, call: str, user, chat_id) -> None:
         """ Log messages """
-        MESSAGE_LOG.info(Templates.LOG_MESSAGE.substitute(
+        MESSAGE_LOG.info(Templates.LOG_MESSAGE.value.substitute(
             user_info=user.user_info,
             chat=chat_id,
             text=call
@@ -61,16 +61,16 @@ class Log:
 
         for index, values in enumerate(list(routers.items())):
             if values[1]:
-                routers_status += Templates.LOG_ROUTER_TRUE.substitute(
+                routers_status += Templates.LOG_ROUTER_TRUE.value.substitute(
                     router=f"{values[0]:<20}",
                     index=index+1
                 )
             else:
-                routers_status += Templates.LOG_ROUTER_FALSE.substitute(
+                routers_status += Templates.LOG_ROUTER_FALSE.value.substitute(
                     router=f"{values[0]:<15}",
                     index=index+1
                 )
 
-        BOT_LOG.info(Templates.LOG_ROUTERS_REGISTER.substitute(
+        BOT_LOG.info(Templates.LOG_ROUTERS_REGISTER.value.substitute(
             routers=routers_status
         ))
