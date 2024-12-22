@@ -21,43 +21,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-#from backend.database import Database
-
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
-
 class User(Base):
+    """
+    The User class represents a user model in the system.
+
+    Attributes:
+        id (int): The unique identifier for the user.
+        name (str): The user's name.
+
+    Methods:
+        __repr__:
+            Returns a string representation of the User object.
+    """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, nullable=False)
 
     def __repr__(self):
         return f'<User(id={self.id}, name="{self.name}")>'
-    
-
-if __name__ == "__main__":
-    engine = create_engine('sqlite:///database.db', echo=True)
-
-    Base.metadata.create_all(engine)
-
-    # Создание сессии
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    """user1 = User(name='Иван Иванов')
-    user2 = User(name='Петр Петров')
-
-    session.add(user1)
-    session.add(user2)
-    session.commit()"""
-    user_to_update = session.query(User).filter_by(name='Иван Иванов').first()
-
-    """users = session.query(User).all()
-    for user in users:
-        print(user)"""
-    
-    print(user_to_update)

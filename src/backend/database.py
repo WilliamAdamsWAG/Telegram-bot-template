@@ -43,32 +43,33 @@ class Database:
     ENGINE = create_engine('sqlite:///database.db')
 
     @staticmethod
-    def get_user(id: int, username: str) -> User:
+    def get_user(user_id: int, username: str) -> User:
         """
         Retrieve a user by their ID and update their name if different.
 
-        This function takes a user's ID and a new username as arguments. If a user with the specified
-        ID exists, it updates their name to the provided one and returns the user object. If the
-        name matches the current user's name, the existing user object is returned without changes.
+        This function takes a user's ID and a new username as arguments. If a user with the
+        specified ID exists, it updates their name to the provided one and returns the user
+        object. If the name matches the current user's name, the existing user object is returned
+        without changes.
 
-        :param id: The user's ID.
-        :type id: int
+        :param user_id: The user's ID.
+        :type user_id: int
         :param username: The new username.
         :type username: str
         :return: The user object.
         :rtype: User
 
         """
-        Session = sessionmaker(bind=Database.ENGINE)
-        session = Session()
+        session_maker = sessionmaker(bind=Database.ENGINE)
+        session = session_maker()
 
         # select user by id
-        user = session.query(User).filter_by(id=id).first()
+        user = session.query(User).filter_by(id=user_id).first()
 
         # Update username if necessary and return User object
         if user.name == username:
             return user
-        
+
         user.name = username
         session.commit()
         session.close()
