@@ -24,7 +24,7 @@ SOFTWARE.
 from aiogram import Router, F
 from aiogram.types import Message
 
-from backend.user import User
+from backend.database import Database
 from backend.log import Log
 
 # Registering the router for further connection
@@ -38,7 +38,7 @@ async def any_message_trigger(message: Message) -> None:
     user_id = message.from_user.id
     username = message.from_user.username
 
-    user = User(user_id, username)
+    user = Database.get_user(user_id, username)
 
     Log.message_logging(call=message.text, user=user, chat_id=message.chat.id)
 

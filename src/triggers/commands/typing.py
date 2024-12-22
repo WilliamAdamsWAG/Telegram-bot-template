@@ -29,7 +29,7 @@ from aiogram.filters import CommandStart
 from aiogram.utils.chat_action import ChatActionSender
 from aiogram.fsm.context import FSMContext
 
-from backend.user import User
+from backend.database import Database
 from backend.log import Log
 from backend.templates import Templates
 
@@ -46,7 +46,7 @@ async def command_start_trigger(message: Message, state: FSMContext) -> None:
     user_id = message.from_user.id
     username = message.from_user.username
 
-    user = User(user_id, username)
+    user = Database.get_user(user_id, username)
 
     Log.message_logging(call="/typing", user=user, chat_id=message.chat.id)
 

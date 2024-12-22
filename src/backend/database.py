@@ -21,36 +21,56 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from user import User
 
 class Database:
-    """ Database
-    Simple interface
+    """ Provides simple database functionality.
+
+    This class provides a basic interface for interacting with the database. It creates an engine
+    for connecting to the database and offers methods for managing users.
+
+    Attributes:
+        ENGINE (sqlalchemy.engine.base.Engine): Engine used to connect to the database.
+
+    Methods defined here:
+        get_user:
+            Retrieves a user by their ID and updates their name if necessary.
 
     """
-    def __init__(self) -> None:
-        self.connection = sqlite3.connect("src/storage/database.db")
-        self.cursor = self.connection.cursor()
+    ENGINE = create_engine('sqlite:///database.db')
 
-        self.create_users_table()
+    @staticmethod
+    def get_user(id: int, username: str) -> User:
+        """
+        Retrieve a user by their ID and update their name if different.
 
-        self.connection.commit()
+        This function takes a user's ID and a new username as arguments. If a user with the specified
+        ID exists, it updates their name to the provided one and returns the user object. If the
+        name matches the current user's name, the existing user object is returned without changes.
 
-    def create_users_table(self) -> None:
-        """ Create users table in databse """
-        self.cursor.execute('''
-                        CREATE TABLE IF NOT EXISTS Users (
-                        id INTEGER PRIMARY KEY,
-                        username TEXT NOT NULL
-                        )
-                        ''')
-        self.connection.commit()
+        :param id: The user's ID.
+        :type id: int
+        :param username: The new username.
+        :type username: str
+        :return: The user object.
+        :rtype: User
 
-    def count_users(self, *, condition: list[str | int] = None) -> int:
-        """ Count users in databse """
-        if condition is None:
-            self.cursor.execute("SELECT COUNT(*) FROM Users")
-            return self.cursor.fetchone()[0]
+        """
+        Session = sessionmaker(bind=Database.ENGINE)
+        session = Session()
 
-        self.cursor.execute(f"SELECT COUNT(*) FROM Users WHERE {list[0]} = {list[1]}")
-        return self.cursor.fetchone()[0]
+        # select user by id
+        user = session.query(User).filter_by(id=id).first()
+
+        # Update username if necessary and return User object
+        if user.name == username:
+            return user
+        
+        user.name = username
+        session.commit()
+        session.close()
+
+        return user

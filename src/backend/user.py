@@ -21,42 +21,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-from backend.database import Database
+#from backend.database import Database
 
-class User(Database):
-    """ User
-    Simple user interface
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-    """
-    def __init__(self, user_id: int, username: str) -> None:
-        super().__init__()
+Base = declarative_base()
 
-        self.check_user(user_id, username)
 
-        self.user_id: int = user_id
-        self.username: str = username
+class User(Base):
+    __tablename__ = 'users'
 
-    def check_user(self, user_id: int, username: str) -> None:
-        """ Check user exist """
-        count_same_query = "SELECT COUNT(*) FROM Users" \
-                          f"WHERE id={user_id} AND username='{username}'"
-        count_id_query = f"SELECT COUNT(*) FROM Users WHERE id={user_id}"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
 
-        self.cursor.execute(count_id_query)
+    def __repr__(self):
+        return f'<User(id={self.id}, name="{self.name}")>'
+    
 
-        if self.cursor.fetchone()[0] == 1:
-            self.cursor.execute(count_same_query)
-            if self.cursor.fetchone()[0] == 1:
-                ...
-            else:
-                self.cursor.execute(f"UPDATE Users SET username='{username}' WHERE id={user_id}")
-                self.connection.commit()
-        else:
-            self.cursor.execute("INSERT INTO Users (id, username)" \
-                                f"VALUES ({user_id}, '{username}')")
-            self.connection.commit()
+if __name__ == "__main__":
+    engine = create_engine('sqlite:///database.db', echo=True)
 
-    @property
-    def user_info(self):
-        """ get user info username:id """
-        return f"{self.username}:{self.user_id}"
+    Base.metadata.create_all(engine)
+
+    # Создание сессии
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    """user1 = User(name='Иван Иванов')
+    user2 = User(name='Петр Петров')
+
+    session.add(user1)
+    session.add(user2)
+    session.commit()"""
+    user_to_update = session.query(User).filter_by(name='Иван Иванов').first()
+
+    """users = session.query(User).all()
+    for user in users:
+        print(user)"""
+    
+    print(user_to_update)
