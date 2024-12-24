@@ -26,6 +26,7 @@ from aiogram.types import Message, FSInputFile
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
+from backend.user import User
 from backend.database import Database
 from backend.log import Log
 
@@ -39,10 +40,10 @@ async def command_start_trigger(message: Message, state: FSMContext) -> None:
     await state.clear()  #  Exit from any FSM states
 
     # Info about user
-    user_id = message.from_user.id
-    username = message.from_user.username
+    user_id: int = message.from_user.id
+    username: str = message.from_user.username
 
-    user = Database.get_user(user_id, username)
+    user: User = Database.get_user(user_id, username)
 
     Log.message_logging(call="/image", user=user, chat_id=message.chat.id)
 
